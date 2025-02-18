@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <PreferenceCategory android:title="Features Settings">
+        <EditTextPreference
+            android:defaultValue="0"
+            android:dialogTitle="@string/dialog_title_edittext_preference"
+            android:key="@string/GroupID"
+            android:title="@string/title_edittext_preference"
+            app:useSimpleSummaryProvider="true" />
+
+        <EditTextPreference
+            android:defaultValue="000"
+            android:dialogTitle="@string/key_title_edittext_preference"
+            android:key="@string/key_title_edittext_preference"
+            android:title="@string/key_title_edittext_preference"
+            app:useSimpleSummaryProvider="true" />
+
+        <SeekBarPreference
+            android:defaultValue="16"
+            android:dialogTitle="Map Zoom"
+            android:key="MapZoom"
+            android:max="21"
+            app:min="10"
+            android:title="Map Zoom Level"
+            app:showSeekBarValue="true"
+            app:useSimpleSummaryProvider="true" />
+
+       <!-- <SeekBarPreference
+            android:defaultValue="20"
+            android:dialogTitle="Data view percentage on data image"
+            android:key="DataViewPercentage"
+            android:max="40"
+            android:title="Data View Percentage"
+            app:min="20"
+            app:showSeekBarValue="true"
+            app:seekBarIncrement="10"
+            app:useSimpleSummaryProvider="true" />-->
+
+        <ListPreference
+            android:defaultValue="1440"
+            android:dialogTitle="@string/title_list_preference"
+            android:entries="@array/pref_save_quality_entries"
+            android:entryValues="@array/pref_save_quality_values"
+            android:key="@string/SaveQuality"
+            android:title="@string/title_list_preference"
+            app:useSimpleSummaryProvider="true" />
+
+
+        <ListPreference
+            android:defaultValue="0"
+            android:dialogTitle="@string/uploaderBehavior"
+            android:entries="@array/MapTypePref_values"
+            android:entryValues="@array/MapTypePref_values_entries"
+            android:key="@string/MapTypePref"
+            android:title="Map Type"
+            app:useSimpleSummaryProvider="true" />
+
+        <ListPreference
+            android:defaultValue="0"
+            android:dialogTitle="@string/SelectCamera"
+            android:entries="@array/SelectCamera_values"
+            android:entryValues="@array/SelectCamera_values_entries"
+            android:key="@string/SelectCamera"
+            android:title="@string/SelectCamera"
+            app:useSimpleSummaryProvider="true" />
+
+        <EditTextPreference
+            android:enabled="false"
+            android:key="UID"
+            android:title="UID" />
+
+        <EditTextPreference
+            android:enabled="false"
+            android:key="Phone"
+            android:title="Phone" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="Uploader Settings">
+
+        <ListPreference
+            android:defaultValue="1"
+            android:dialogTitle="@string/uploaderBehavior"
+            android:entries="@array/autoUploader_values"
+            android:entryValues="@array/autoUploader_values_entries"
+            android:key="@string/autoUploader"
+            android:title="@string/uploaderBehavior"
+            app:useSimpleSummaryProvider="true" />
+
+        <Preference
+            android:id="@+id/ToggleUploader"
+            android:key="@string/ToggleUploader"
+
+            android:title="Start/Stop Uploader" />
+
+        <Preference
+            android:id="@+id/viewEnqueuedFiles"
+            android:key="@string/viewEnqueuedFiles"
+            android:title="View Enqueued Files" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="Info">
+
+        <Preference
+            android:title="About"
+            android:key="@string/AboutButtonPref"
+            />
+
+    </PreferenceCategory>
+    <PreferenceCategory >
+
+        <Preference
+            />
+
+    </PreferenceCategory>
+</PreferenceScreen>

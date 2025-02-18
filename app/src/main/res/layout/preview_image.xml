@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_marginTop="4dp"
+            android:id="@+id/imageViewPreviewDialog"
+            android:layout_width="300dp"
+            android:layout_height="400dp"
+            android:contentDescription="Preview Image"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <LinearLayout
+            android:layout_marginTop="4dp"
+            android:gravity="center"
+            android:weightSum="2"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content">
+        <Button
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:id="@+id/buttonOpenGallery"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Gallery"
+            android:layout_weight="1"
+            app:layout_constraintEnd_toEndOf="@+id/imageViewPreviewDialog"
+            app:layout_constraintStart_toStartOf="@+id/imageViewPreviewDialog"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewPreviewDialog" />
+
+        <Button
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:id="@+id/buttonCancelDialog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cancel"
+            android:layout_weight="1"
+            app:layout_constraintEnd_toEndOf="@+id/buttonOpenGallery"
+            app:layout_constraintStart_toStartOf="@+id/buttonOpenGallery"
+            app:layout_constraintTop_toBottomOf="@+id/buttonOpenGallery" />
+        </LinearLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
