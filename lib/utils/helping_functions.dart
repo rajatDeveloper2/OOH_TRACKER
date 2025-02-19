@@ -1,11 +1,11 @@
 //function to handle the responvise height
 
 import 'dart:math';
-
-
 import 'package:flutter/material.dart';
 import 'package:lorryzone_tracker_app/res/colors.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+
 
 double getDeviceHeight(BuildContext context) =>
     MediaQuery.of(context).size.height;
@@ -38,6 +38,7 @@ Future<void> setDataToLocal(
   SharedPreferences prefs = await SharedPreferences.getInstance();
   await prefs.setString(key, value);
 }
+
 
 //function to get the saved data using key from local
 Future<String> getSavedDataByKey({required String key}) async {

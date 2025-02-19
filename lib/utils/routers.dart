@@ -1,6 +1,7 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:lorryzone_tracker_app/feature/auth/view/splash_view.dart';
 
 Map<String, Widget Function(BuildContext)> getAppRoutes() {
   Map<String, Widget Function(BuildContext)> appRoutes = {
@@ -14,6 +15,7 @@ Map<String, Widget Function(BuildContext)> getAppRoutes() {
     //         caseModel: caseModel,
     //       );
     //     },
+    SplashView.tag : (context)=> SplashView()
    
 
   };
