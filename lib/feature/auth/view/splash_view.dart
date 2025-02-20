@@ -6,6 +6,7 @@ import 'package:lorryzone_tracker_app/utils/helping_functions.dart';
 
 class SplashView extends StatefulWidget {
   static const String tag = "splash-view";
+
   const SplashView({super.key});
 
   @override

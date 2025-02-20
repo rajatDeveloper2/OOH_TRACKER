@@ -1,5 +1,10 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
+// ignore_for_file: public_member_api_docs, sort_constructors_first, use_build_context_synchronously
+import 'dart:developer';
+import 'dart:io';
+
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:lorryzone_tracker_app/core/key/user_key.dart';
 import 'package:lorryzone_tracker_app/core/widgets/custom_button.dart';
 import 'package:lorryzone_tracker_app/core/widgets/custom_textfield.dart';
 import 'package:lorryzone_tracker_app/feature/auth/controller/auth_controller.dart';
@@ -25,6 +30,20 @@ class OtpScreen extends StatefulWidget {
 
 class _OtpScreenState extends State<OtpScreen> {
   final _authController = AuthController();
+
+  Future<String?> getDeviceId() async {
+    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+
+    if (Platform.isAndroid) {
+      AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+      return androidInfo.id; // Unique ID for Android
+    } else if (Platform.isIOS) {
+      IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
+      return iosInfo.identifierForVendor; // Unique ID for iOS
+    }
+
+    return null;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,17 +86,91 @@ class _OtpScreenState extends State<OtpScreen> {
                 SizedBox(height: getDeviceHeight(context) * 0.06),
                 CustomElevatedBtn(
                   text: "Verify OTP",
-                  onPressed: () {
+                  onPressed: () async {
                     if (_authController.otpController.text.length >= 4) {
                       if (widget.realOTP ==
                           _authController.otpController.text.trim()) {
                         var provider = context.read<MainProvider>();
-                        provider.registrationFunction(
-                          context: context,
-                          mobileNumber: widget.mobileNumber,
-                          otp: widget.realOTP,
-                          uuid: Uuid().v1(),
+
+                        String uuid = await getSavedDataByKey(
+                          key: KeyData.uuid,
                         );
+
+                        if (uuid == "") {
+                          // no uuid found in local
+
+                          //get deviceId
+
+                          String? deviceId = null;
+                          (await getDeviceId())
+                              ?.replaceAll(".", "")
+                              .replaceAll("-", "");
+
+                          log("Device Id: ${deviceId}");
+
+                          if (deviceId == null) {
+                            String uuidFromApp = Uuid()
+                                .v1()
+                                .replaceAll(".", "")
+                                .replaceAll("-", "");
+                            log("New UUId from UUID: ${uuidFromApp}");
+                            setDataToLocal(
+                              key: KeyData.uuid,
+                              value: uuidFromApp,
+                            );
+                            // if device id is not able to get
+
+                            setDataToLocal(
+                              key: KeyData.phoneNo,
+                              value: widget.mobileNumber.replaceAll("+", ""),
+                            );
+
+                            provider.registrationFunction(
+                              context: context,
+                              mobileNumber: widget.mobileNumber.replaceAll(
+                                "+",
+                                "",
+                              ),
+                              otp: widget.realOTP,
+                              uuid: uuidFromApp,
+                            );
+                            return;
+                          } else {
+                            // if we have deviceId
+                            setDataToLocal(key: KeyData.uuid, value: deviceId);
+                            setDataToLocal(
+                              key: KeyData.phoneNo,
+                              value: widget.mobileNumber.replaceAll("+", ""),
+                            );
+                            provider.registrationFunction(
+                              context: context,
+                              mobileNumber: widget.mobileNumber.replaceAll(
+                                "+",
+                                "",
+                              ),
+                              otp: widget.realOTP,
+                              uuid: deviceId,
+                            );
+                            return;
+                          }
+                        } else {
+                          // if we have uuid in local
+                          // save mobile no.
+                          setDataToLocal(
+                            key: KeyData.phoneNo,
+                            value: widget.mobileNumber.replaceAll("+", ""),
+                          );
+                          provider.registrationFunction(
+                            context: context,
+                            mobileNumber: widget.mobileNumber.replaceAll(
+                              "+",
+                              "",
+                            ),
+                            otp: widget.realOTP,
+                            uuid: uuid,
+                          );
+                          return;
+                        }
                       } else {
                         showSnackBar(context, "Please enter correct OTP");
                       }

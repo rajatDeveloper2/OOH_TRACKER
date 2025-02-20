@@ -16,6 +16,20 @@ class MainProvider extends ChangeNotifier {
   final _authService = AuthService();
 
   String? token;
+
+  //Variable used
+
+  String? campId;
+  String? key;
+  String? mapZoom;
+  String? quality;
+  String? mapType;
+  String? camType;
+  String? uuid;
+  String? phone;
+  String? uploadBeh;
+
+  // --------------------------
   UserModel? userModel;
 
   // Send OTP to 2 Factor
@@ -56,44 +70,44 @@ class MainProvider extends ChangeNotifier {
 
   // verfiy the token
 
-  verifyTheTokenAndGetUserData({required BuildContext context}) async {
-    try {
-      var res = await _authService.verifyUserTokenAndGetUserData(
-        token: token ?? " ",
-      );
-      res.handleResponse(
-        onFailed: () {
-          showSnackBar(
-            context,
-            res.error?.errorMsg ?? "Please retry in some time",
-          );
+  // verifyTheTokenAndGetUserData({required BuildContext context}) async {
+  //   try {
+  //     var res = await _authService.verifyUserTokenAndGetUserData(
+  //       token: token ?? " ",
+  //     );
+  //     res.handleResponse(
+  //       onFailed: () {
+  //         showSnackBar(
+  //           context,
+  //           res.error?.errorMsg ?? "Please retry in some time",
+  //         );
 
-          removeDataByKey(key: KeyData.tokenKey);
+  //         removeDataByKey(key: KeyData.tokenKey);
 
-          // Navigate to Splash Screen
+  //         // Navigate to Splash Screen
 
-          Navigator.pushNamedAndRemoveUntil(
-            context,
-            SplashView.tag,
-            (Route<dynamic> route) => false, // Removes all previous routes
-          );
-        },
-        onSuccess: () {
-          userModel = res.data;
-          notifyListeners();
+  //         Navigator.pushNamedAndRemoveUntil(
+  //           context,
+  //           SplashView.tag,
+  //           (Route<dynamic> route) => false, // Removes all previous routes
+  //         );
+  //       },
+  //       onSuccess: () {
+  //         userModel = res.data;
+  //         notifyListeners();
 
-          //Navigate to Home Screen
-          Navigator.pushNamedAndRemoveUntil(
-            context,
-            HomeView.tag,
-            (Route<dynamic> route) => false, // Removes all previous routes
-          );
-        },
-      );
-    } catch (e) {
-      showSnackBar(context, e.toString());
-    }
-  }
+  //         //Navigate to Home Screen
+  //         Navigator.pushNamedAndRemoveUntil(
+  //           context,
+  //           HomeView.tag,
+  //           (Route<dynamic> route) => false, // Removes all previous routes
+  //         );
+  //       },
+  //     );
+  //   } catch (e) {
+  //     showSnackBar(context, e.toString());
+  //   }
+  // }
 
   // genrate Token
 
@@ -153,6 +167,7 @@ class MainProvider extends ChangeNotifier {
         onSuccess: () async {
           // hideLoading(context);
           showSnackBar(context, "SercueOtp: ${res.data['secureOTP']}");
+
           log("SecureOTP:${res.data['secureOTP']}");
 
           // genrate the Token
