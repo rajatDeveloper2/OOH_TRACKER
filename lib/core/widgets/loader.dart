@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:lorryzone_tracker_app/res/colors.dart';
 
@@ -16,9 +15,7 @@ void showLoading(BuildContext context) {
         // ignore: deprecated_member_use
         child: WillPopScope(
           child: const Center(
-            child: CircularProgressIndicator(
-              color: AppColors.blueColor,
-            ),
+            child: CircularProgressIndicator(color: AppColors.whiteColor),
           ),
           onWillPop: () async {
             return false;

@@ -1,7 +1,8 @@
-
-
 import 'package:flutter/material.dart';
+import 'package:lorryzone_tracker_app/feature/auth/view/login_view.dart';
+import 'package:lorryzone_tracker_app/feature/auth/view/otp_screen.dart';
 import 'package:lorryzone_tracker_app/feature/auth/view/splash_view.dart';
+import 'package:lorryzone_tracker_app/feature/home/view/home_view.dart';
 
 Map<String, Widget Function(BuildContext)> getAppRoutes() {
   Map<String, Widget Function(BuildContext)> appRoutes = {
@@ -15,9 +16,17 @@ Map<String, Widget Function(BuildContext)> getAppRoutes() {
     //         caseModel: caseModel,
     //       );
     //     },
-    SplashView.tag : (context)=> SplashView()
-   
+    SplashView.tag: (context) => SplashView(),
+    LoginView.tag: (context) => LoginView(),
+    OtpScreen.tag: (context) {
+      var args =
+          ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+      String mobileNumber = args['mobileNumber'];
+      String realOTP = args['realOTP'];
 
+      return OtpScreen(mobileNumber: mobileNumber, realOTP: realOTP);
+    },
+    HomeView.tag: (context) => HomeView(),
   };
   return appRoutes;
 }

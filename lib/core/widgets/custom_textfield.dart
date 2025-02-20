@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:lorryzone_tracker_app/res/colors.dart';
 
@@ -72,27 +71,29 @@ class _CustomTextFieldState extends State<CustomTextField> {
       children: [
         TextField(
           maxLines: widget.maxLength == 1 ? null : widget.maxLines,
-
-          textCapitalization: widget.isCap
-              ? TextCapitalization.characters
-              : TextCapitalization.none,
+          textCapitalization:
+              widget.isCap
+                  ? TextCapitalization.characters
+                  : TextCapitalization.none,
           onChanged: (val) {
             if (widget.onChange != null) {
               widget.onChange!(val);
             }
           },
           maxLength: widget.maxLength,
-          keyboardType: widget.isNum
-              ? const TextInputType.numberWithOptions(decimal: true)
-              : TextInputType.text,
+          keyboardType:
+              widget.isNum
+                  ? const TextInputType.numberWithOptions(decimal: true)
+                  : TextInputType.text,
           controller: widget.controller,
           obscureText: widget.isPassword ? ishide : false,
           autofillHints: widget.autofillHints,
           focusNode: widget.node,
 
-          textInputAction: widget.nextNode == null
-              ? TextInputAction.done
-              : TextInputAction.next,
+          textInputAction:
+              widget.nextNode == null
+                  ? TextInputAction.done
+                  : TextInputAction.next,
           onSubmitted: (value) {
             if (widget.nextNode != null) {
               widget.node.unfocus();
@@ -103,23 +104,25 @@ class _CustomTextFieldState extends State<CustomTextField> {
           enabled:
               widget.isWritable, // Set the enabled property based on isWritable
           style: TextStyle(
-              color: widget.textFieldTextColor), // Set text color in TextField
+            color: widget.textFieldTextColor,
+          ), // Set text color in TextField
           decoration: InputDecoration(
             prefixIcon: widget.icon != null ? Icon(widget.icon) : null,
             // floatingLabelBehavior: FloatingLabelBehavior.always,
-            suffixIcon: widget.isPassword
-                ? IconButton(
-                    onPressed: () {
-                      setState(() {
-                        ishide = !ishide;
-                      });
-                    },
-                    icon: Icon(
-                      ishide ? Icons.visibility : Icons.visibility_off,
-                      color: widget.textFieldTextColor,
-                    ),
-                  )
-                : null,
+            suffixIcon:
+                widget.isPassword
+                    ? IconButton(
+                      onPressed: () {
+                        setState(() {
+                          ishide = !ishide;
+                        });
+                      },
+                      icon: Icon(
+                        ishide ? Icons.visibility : Icons.visibility_off,
+                        color: widget.textFieldTextColor,
+                      ),
+                    )
+                    : null,
             labelText: widget.labelText,
             filled: true,
             fillColor: widget.backgroundColor,
@@ -127,30 +130,33 @@ class _CustomTextFieldState extends State<CustomTextField> {
             counterText: '',
             hintStyle: const TextStyle(color: Colors.black),
             labelStyle: const TextStyle(color: AppColors.blackColor),
-            // enabledBorder: OutlineInputBorder(
-            //   borderRadius:
-            //       BorderRadius.all(Radius.circular(widget.borderRadius)),
-            //   borderSide: const BorderSide(
-            //     color: Colors
-            //         .grey, // Use a default border color for inactive state
-            //   ),
-            // ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.all(
+                Radius.circular(widget.borderRadius),
+              ),
+              borderSide: const BorderSide(
+                color:
+                    Colors
+                        .grey, // Use a default border color for inactive state
+              ),
+            ),
 
-            // disabledBorder: OutlineInputBorder(
-            //   borderRadius:
-            //       BorderRadius.all(Radius.circular(widget.borderRadius)),
-            //   borderSide: const BorderSide(
-            //     color: Colors
-            //         .grey, // Use a default border color for disabled state
-            //   ),
-            // ),
-            // focusedBorder: OutlineInputBorder(
-            //   borderRadius:
-            //       BorderRadius.all(Radius.circular(widget.borderRadius)),
-            //   borderSide: BorderSide(
-            //     color: widget.borderActiveColor,
-            //   ),
-            // ),
+            disabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.all(
+                Radius.circular(widget.borderRadius),
+              ),
+              borderSide: const BorderSide(
+                color:
+                    Colors
+                        .grey, // Use a default border color for disabled state
+              ),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.all(
+                Radius.circular(widget.borderRadius),
+              ),
+              borderSide: BorderSide(color: widget.borderActiveColor),
+            ),
             // Set text color based on focus state
           ),
         ),
